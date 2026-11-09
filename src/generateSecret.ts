@@ -11,20 +11,15 @@ export function generateSecret(
     );
   }
 
-  const alphabet = ALL_DIGITS.slice(0, base);
+  const alphabet = [...ALL_DIGITS.slice(0, base)];
 
-  const pickUnique = (acc: string[]): string[] => {
+  const pickUnique = (bag: string[], acc: string[] = []): string[] => {
     if (acc.length === length) return acc;
-
-    const index = Math.floor(random() * base);
-    const char = alphabet.charAt(index);
-
-    if (acc.includes(char)) {
-      return pickUnique(acc);
-    }
-
-    return pickUnique([...acc, char]);
+    const index = Math.floor(random() * bag.length);
+    const chosen = bag[index]!;
+    const rest = bag.filter((_, i) => i !== index); // ← новый массив, без мутации
+    return pickUnique(rest, [...acc, chosen]);
   };
 
-  return pickUnique([]).join("");
+  return pickUnique(alphabet).join("");
 }
