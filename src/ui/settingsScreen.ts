@@ -1,5 +1,14 @@
+const AVAILABLE_LENGTHS = [2, 3, 4, 5, 6];
+const AVAILABLE_BASES = [
+  { value: 2, label: "Бин (2)" },
+  { value: 8, label: "Окт (8)" },
+  { value: 10, label: "Дек (10)" },
+  { value: 16, label: "Хекс (16)" },
+];
+
 export function createSettingsScreen(
   onStart: (config: { length: number; base: number }) => void,
+  onViewRecords: () => void,
 ): HTMLElement {
   const container = document.createElement("div");
 
@@ -16,8 +25,7 @@ export function createSettingsScreen(
   lengthLabel.textContent = "Длина секрета: ";
 
   const lengthSelect = document.createElement("select");
-  // Генерируем опции от 2 до 6
-  [2, 3, 4, 5, 6].forEach((len) => {
+  AVAILABLE_LENGTHS.forEach((len) => {
     const opt = document.createElement("option");
     opt.value = String(len);
     opt.textContent = String(len);
@@ -28,18 +36,13 @@ export function createSettingsScreen(
   baseLabel.textContent = "База: ";
 
   const baseSelect = document.createElement("select");
-  const bases = [
-    { value: 2, label: "Бин (2)" },
-    { value: 8, label: "Окт (8)" },
-    { value: 10, label: "Дек (10)" },
-    { value: 16, label: "Хекс (16)" },
-  ];
-  bases.forEach((b) => {
+  AVAILABLE_BASES.forEach((b) => {
     const opt = document.createElement("option");
     opt.value = String(b.value);
     opt.textContent = b.label;
     baseSelect.append(opt);
   });
+
   baseSelect.value = "10";
 
   baseSelect.addEventListener("change", () => {
@@ -60,6 +63,12 @@ export function createSettingsScreen(
   submitBtn.type = "submit";
   submitBtn.textContent = "Начать игру";
 
+  const recordsBtn = document.createElement("button");
+  recordsBtn.type = "button";
+  recordsBtn.textContent = "🏆 Таблица рекордов";
+  recordsBtn.style.marginTop = "10px";
+  recordsBtn.addEventListener("click", onViewRecords);
+
   form.append(
     lengthLabel,
     lengthSelect,
@@ -70,7 +79,11 @@ export function createSettingsScreen(
     document.createElement("br"),
     document.createElement("br"),
     submitBtn,
+    recordsBtn,
   );
+
+  recordsBtn.style.display = "block";
+  recordsBtn.style.marginTop = "20px";
 
   container.append(form);
   return container;
