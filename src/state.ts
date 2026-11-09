@@ -1,20 +1,31 @@
 import type { GameConfig, GameState } from "./types";
+
 export function createInitialState(
   config: GameConfig,
   secret: string,
 ): GameState {
-  void config;
-  void secret;
-  return {} as GameState;
+  return {
+    config,
+    secret,
+    attempts: [],
+    status: "playing",
+  };
 }
 
 export function addAttempt(
   state: GameState,
   guess: string,
-  feedback: { bulls: number; cows: number },
+  result: { bulls: number; cows: number },
 ): GameState {
-  void state;
-  void guess;
-  void feedback;
-  return {} as GameState;
+  const newEntry = {
+    guess,
+    bulls: result.bulls,
+    cows: result.cows,
+  };
+
+  return {
+    ...state,
+    attempts: [...state.attempts, newEntry],
+    status: result.bulls === state.config.length ? "won" : state.status,
+  };
 }
