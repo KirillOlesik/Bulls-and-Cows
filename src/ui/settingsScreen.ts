@@ -11,6 +11,7 @@ export function createSettingsScreen(
   onViewRecords: () => void,
 ): HTMLElement {
   const container = document.createElement("div");
+  container.classList.add("retro-card");
 
   const form = document.createElement("form");
   form.addEventListener("submit", (e) => {
@@ -25,6 +26,7 @@ export function createSettingsScreen(
   lengthLabel.textContent = "Длина секрета: ";
 
   const lengthSelect = document.createElement("select");
+  lengthSelect.classList.add("select-field");
   AVAILABLE_LENGTHS.forEach((len) => {
     const opt = document.createElement("option");
     opt.value = String(len);
@@ -36,13 +38,13 @@ export function createSettingsScreen(
   baseLabel.textContent = "База: ";
 
   const baseSelect = document.createElement("select");
+  baseSelect.classList.add("select-field");
   AVAILABLE_BASES.forEach((b) => {
     const opt = document.createElement("option");
     opt.value = String(b.value);
     opt.textContent = b.label;
     baseSelect.append(opt);
   });
-
   baseSelect.value = "10";
 
   baseSelect.addEventListener("change", () => {
@@ -62,28 +64,28 @@ export function createSettingsScreen(
   const submitBtn = document.createElement("button");
   submitBtn.type = "submit";
   submitBtn.textContent = "Начать игру";
+  submitBtn.classList.add("btn");
 
   const recordsBtn = document.createElement("button");
   recordsBtn.type = "button";
-  recordsBtn.textContent = "🏆 Таблица рекордов";
-  recordsBtn.style.marginTop = "10px";
+  recordsBtn.textContent = " Таблица рекордов";
+  recordsBtn.classList.add("btn");
   recordsBtn.addEventListener("click", onViewRecords);
 
   form.append(
     lengthLabel,
+    document.createElement("br"),
     lengthSelect,
     document.createElement("br"),
     document.createElement("br"),
     baseLabel,
+    document.createElement("br"),
     baseSelect,
     document.createElement("br"),
     document.createElement("br"),
     submitBtn,
     recordsBtn,
   );
-
-  recordsBtn.style.display = "block";
-  recordsBtn.style.marginTop = "20px";
 
   container.append(form);
   return container;

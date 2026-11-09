@@ -6,6 +6,7 @@ import { evaluateGuess } from "./evaluateGuess";
 import { createInitialState, addAttempt } from "./state";
 import { loadRecords, addRecord, saveRecords } from "./records";
 import type { GameState } from "./types";
+import "./style.css";
 
 const app = document.getElementById("app")!;
 

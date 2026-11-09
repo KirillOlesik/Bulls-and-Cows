@@ -9,31 +9,35 @@ export function createGameScreen(
   onRestart: () => void,
 ) {
   const container = document.createElement("div");
+  container.classList.add("retro-card");
+
   let currentState = initialState;
   const isDigit = createDigitValidator(initialState.config.base);
 
   const title = document.createElement("h2");
   title.textContent = "Угадайте секрет";
+  title.style.textAlign = "center"; // можно добавить в CSS, но оставим так для заголовка
 
   const info = document.createElement("p");
   info.textContent = `Длина: ${initialState.config.length} | База: ${initialState.config.base}`;
 
   const timerDisplay = document.createElement("div");
-  timerDisplay.style.fontWeight = "bold";
-  timerDisplay.style.color = "#0055aa";
-  timerDisplay.style.marginBottom = "15px";
+  timerDisplay.classList.add("timer-display");
   timerDisplay.textContent = "Время: 0 сек.";
 
   const timerId = setInterval(() => {
     const seconds = Math.floor((Date.now() - startTime) / 1000);
     timerDisplay.textContent = `Время: ${seconds} сек.`;
   }, 1000);
+
   const form = document.createElement("form");
   const input = document.createElement("input");
   input.type = "text";
+  input.classList.add("input-field");
   input.maxLength = initialState.config.length;
   input.placeholder = `Введите ${initialState.config.length} символов...`;
 
+  // Живой фильтр ввода
   input.addEventListener("input", () => {
     const currentValue = input.value;
     const filteredValue = [...currentValue]
@@ -50,10 +54,10 @@ export function createGameScreen(
   const submitBtn = document.createElement("button");
   submitBtn.type = "submit";
   submitBtn.textContent = "Проверить";
+  submitBtn.classList.add("btn");
 
   const errorMsg = document.createElement("div");
-  errorMsg.style.color = "red";
-  errorMsg.style.minHeight = "1.2em";
+  errorMsg.classList.add("error-text");
 
   form.append(input, submitBtn, errorMsg);
 
@@ -81,12 +85,11 @@ export function createGameScreen(
   historyTitle.textContent = "История ходов";
 
   const historyList = document.createElement("ul");
-  historyList.style.listStyle = "none";
-  historyList.style.padding = "0";
+  historyList.classList.add("history-list");
 
   const restartBtn = document.createElement("button");
   restartBtn.textContent = "Сдаться (в настройки)";
-  restartBtn.style.marginTop = "20px";
+  restartBtn.classList.add("btn");
 
   restartBtn.addEventListener("click", () => {
     clearInterval(timerId);
@@ -109,19 +112,18 @@ export function createGameScreen(
 
     state.attempts.forEach((attempt) => {
       const li = document.createElement("li");
-      li.style.marginBottom = "5px";
-      li.style.fontFamily = "monospace";
+      li.classList.add("history-item");
 
       const guessSpan = document.createElement("strong");
       guessSpan.textContent = `${attempt.guess} → `;
 
       const bullsSpan = document.createElement("span");
       bullsSpan.textContent = `Быки: ${attempt.bulls} `;
-      bullsSpan.style.color = "green";
+      bullsSpan.classList.add("bulls-text");
 
       const cowsSpan = document.createElement("span");
       cowsSpan.textContent = `Коровы: ${attempt.cows}`;
-      cowsSpan.style.color = "orange";
+      cowsSpan.classList.add("cows-text");
 
       li.append(guessSpan, bullsSpan, cowsSpan);
       historyList.append(li);
@@ -132,11 +134,12 @@ export function createGameScreen(
 
       if (finalTimeSeconds !== undefined) {
         timerDisplay.textContent = `Время: ${finalTimeSeconds} сек.`;
-        timerDisplay.style.color = "green";
+        timerDisplay.classList.add("win-text");
       }
 
       info.textContent = `ПОБЕДА! Вы угадали за ${state.attempts.length} ходов.`;
-      info.style.color = "green";
+      info.classList.add("win-text");
+
       input.disabled = true;
       submitBtn.disabled = true;
       title.textContent = "Игра окончена";
