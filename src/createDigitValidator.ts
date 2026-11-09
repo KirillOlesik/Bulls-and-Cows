@@ -1,8 +1,7 @@
-export function createDigitValidator(base: number): (char: string) => boolean {
-  return (char: string) => {
-    if (!base || char.match(/^[0-9a-zA-Z]$/)) {
-      throw new Error("base must be specifed ");
-    }
-    return false;
-  };
+const ALL_DIGITS = "0123456789abcdef";
+
+export function createDigitValidator(base: number) {
+  const validDigits = ALL_DIGITS.slice(0, base);
+  return (char: string) =>
+    char.length === 1 && validDigits.includes(char.toLowerCase());
 }
