@@ -17,7 +17,7 @@ export function generateSecret(
     if (acc.length === length) return acc;
     const index = Math.floor(random() * bag.length);
     const chosen = bag[index]!;
-    const rest = bag.filter((_, i) => i !== index); // ← новый массив, без мутации
+    const rest = bag.filter((_, i) => i !== index);
     return pickUnique(rest, [...acc, chosen]);
   };
 
