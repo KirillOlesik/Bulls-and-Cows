@@ -10,7 +10,8 @@
     "deploy": "gh-pages -d dist",
     "test": "vitest run",
     "prepare": "husky",
-    "lint": "prettier --check \"src/**/*.ts\" --no-error-on-unmatched-pattern && eslint \"src/**/*.ts\" --no-error-on-unmatched-pattern"
+    "lint": "prettier --check \"src/**/*.ts\" --no-error-on-unmatched-pattern && eslint \"src/**/*.ts\" --no-error-on-unmatched-pattern",
+    "format": "prettier --write \"src/**/*.{ts,css}\""
   },
   "repository": {
     "type": "git",
