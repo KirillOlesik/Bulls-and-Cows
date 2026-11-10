@@ -1,0 +1,42 @@
+{
+  "name": "bulls-and-cows",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "test": "vitest run",
+    "prepare": "husky",
+    "lint": "prettier --check \"src/**/*.ts\" --no-error-on-unmatched-pattern && eslint \"src/**/*.ts\" --no-error-on-unmatched-pattern",
+    "format": "prettier --write \"src/**/*.{ts,css}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KirillOlesik/Bulls-and-Cows.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KirillOlesik/Bulls-and-Cows/issues"
+  },
+  "homepage": "https://github.com/KirillOlesik/Bulls-and-Cows#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.6",
+    "eslint": "^10.14.0",
+    "gh-pages": "^6.3.0",
+    "globals": "^17.14.0",
+    "husky": "^9.1.7",
+    "jiti": "^2.7.0",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.72.1",
+    "vite": "^8.3.7",
+    "vitest": "^5.1.0"
+  }
+}
